@@ -1,0 +1,8 @@
+[package]
+name = "pwatch"
+version = "0.1.0"
+authors = ["Rotem Yaari"]
+
+[dependencies]
+libc = "0.2"
+errno = "*"
