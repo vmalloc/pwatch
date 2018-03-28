@@ -3,6 +3,9 @@ name = "pwatch"
 version = "0.1.0"
 authors = ["Rotem Yaari"]
 
+[profile.release]
+lto = true
+
 [dependencies]
 libc = "0.2"
 errno = "*"
