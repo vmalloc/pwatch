@@ -3,6 +3,7 @@ rust:
   - stable
 script:
   - cargo build --verbose --release
+  - strip target/release/pwatch
   - mv target/release/pwatch pwatch-$TRAVIS_TAG-x86_64-linux
 
 deploy:
