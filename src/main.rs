@@ -4,7 +4,7 @@ extern crate libc;
 use std::ffi::CString;
 use std::io::Write;
 use std::path::{Path};
-use libc::{c_char, execve, prctl, PR_SET_PDEATHSIG, SIGTERM};
+use libc::{c_char, execv, prctl, PR_SET_PDEATHSIG, SIGTERM};
 use errno::errno;
 
 
@@ -49,8 +49,8 @@ fn main() {
         .collect::<Vec<*const c_char>>();
     c_args.push(std::ptr::null());
 
-    let mut c_env: Vec<*const c_char> = Vec::new();
-    c_env.push(std::ptr::null());
+    // let mut c_env: Vec<*const c_char> = Vec::new();
+    // c_env.push(std::ptr::null());
 
     unsafe {
 
@@ -61,7 +61,7 @@ fn main() {
             std::process::exit(1);
         }
 
-        execve(c_args[0], c_args.as_ptr(), c_env.as_ptr());
+        execv(c_args[0], c_args.as_ptr());
         writeln!(std::io::stderr(), "Error executing program: {}", errno()).unwrap();
         std::process::exit(1);
 
