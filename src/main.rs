@@ -11,7 +11,6 @@ use errno::errno;
 fn resolve_executable(s: &str) -> String {
 
     let path = Path::new(s);
-
     if !path.is_absolute() {
 
         if let Some(paths) = std::env::var_os("PATH") {
@@ -23,7 +22,6 @@ fn resolve_executable(s: &str) -> String {
                 if filename.is_file() {
                     return filename.to_str().unwrap().to_owned();
                 }
-
             }
         }
     }
