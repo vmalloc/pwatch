@@ -40,9 +40,6 @@ fn main() {
         .collect::<Vec<*const c_char>>();
     c_args.push(std::ptr::null());
 
-    // let mut c_env: Vec<*const c_char> = Vec::new();
-    // c_env.push(std::ptr::null());
-
     unsafe {
         let retval = prctl(PR_SET_PDEATHSIG, SIGTERM);
 
