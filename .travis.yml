@@ -13,7 +13,7 @@ deploy:
   api_key:
     secure: "McInC1eooGSIi1AwZBPCwR8fWJFrg3yNy42xbkNJRnXvNb5VU/PzsyqNhgueytgUz6zgqSIDCRYVcNyof85V4H91MK1me+4+5aDbLyjqLkBxisEROhKoF24oFiFXUPcFZsSuKFLkd4kNhJGK70UrryU7rcvXSeXpQ33zEUMeoI18FO2Ok+ogatUFpejr+ZNpudbf39yT2m1zInRJGM+sa3nsfjqf5vpM39HOE8u19x2m9ua6awksvE+2fHTlPthbnN25sivXLDQu41jrqiDUapHaleJMmNweAmtIsVjyuwDeuiUqVGlKpz6fvVujHtQkcUA7SaFDDz32UotoEhRtwqAm1nKkf8vFGLb1rrqBi0D3oohunms+dBP9O6z39ICtpebZdwInltBoUEH57hypT9V+AttZoY11xXSOzh4Uj1xnhhFXZRMbU5qXIw6F+M3ZZDVQ0hA5qjALjuukOE+nexCUfFZ0PLAhnJT2lfSMr2JlIQJw5ECWMpNwMT/ayCrtcEB38JHgUaGlgsDBaX4WbWg2+tEeYkK5DH3ew6XD6ySyEIK26+H3qM3FPdT0hfxg9OCHM+/OY4bXsLufwc6/IlO1hdkd5jzRTKD8wmPfC1eh8PRlLnAieVsd0/b1NjP5QJKuRvSkQnNbT8/md83MylSJ+ZBDtzVerp2KRhuC6R0="
   file_glob: true
-  file: pwatch-$TRAVIS_TRAG-x86_64-linux
+  file: pwatch-*-linux
   on:
     tags: true
   provider: releases
