@@ -26,19 +26,25 @@ fn resolve_executable(s: &str) -> String {
 fn main() {
     let executable = std::env::args().skip(1).next().unwrap();
 
-    let mut args: Vec<CString> = Vec::new();
-    args.push(CString::new(resolve_executable(&executable)).unwrap());
-    args.extend(
-        std::env::args()
-            .skip(2)
-            .map(|arg| CString::new(arg).unwrap())
-            .collect::<Vec<CString>>(),
-    );
+    let args = {
+        let mut args = Vec::new();
+        args.push(CString::new(resolve_executable(&executable)).unwrap());
+        args.extend(
+            std::env::args()
+                .skip(2)
+                .map(|arg| CString::new(arg).unwrap())
+                .collect::<Vec<CString>>(),
+        );
+        args
+    };
 
-    let mut c_args = args.iter()
-        .map(|arg| arg.as_ptr())
-        .collect::<Vec<*const c_char>>();
-    c_args.push(std::ptr::null());
+    let c_args = {
+        let mut c_args = args.iter()
+            .map(|arg| arg.as_ptr())
+            .collect::<Vec<*const c_char>>();
+        c_args.push(std::ptr::null());
+        c_args
+    };
 
     unsafe {
         let retval = prctl(PR_SET_PDEATHSIG, SIGTERM);
