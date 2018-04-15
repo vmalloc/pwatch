@@ -2,7 +2,6 @@ extern crate errno;
 extern crate libc;
 
 use std::ffi::CString;
-use std::io::Write;
 use std::path::Path;
 use libc::{c_char, execv, prctl, PR_SET_PDEATHSIG, SIGTERM};
 use errno::errno;
@@ -50,12 +49,10 @@ fn main() {
         let retval = prctl(PR_SET_PDEATHSIG, SIGTERM);
 
         if retval != 0 {
-            writeln!(std::io::stderr(), "Error from prctl: {}", errno()).unwrap();
-            std::process::exit(1);
+            panic!("Error from prctl: {}", errno());
         }
 
         execv(c_args[0], c_args.as_ptr());
-        writeln!(std::io::stderr(), "Error executing program: {}", errno()).unwrap();
-        std::process::exit(1);
+        panic!("Error executing program: {}", errno());
     }
 }
