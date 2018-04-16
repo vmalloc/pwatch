@@ -28,12 +28,9 @@ fn main() {
     let executable = std::env::args().skip(1).next().unwrap();
 
     let args = iter::once(CString::new(resolve_executable(&executable)))
-        .chain(
-            std::env::args()
-                .skip(2)
-                .map(|arg| CString::new(arg)))
-        .collect::<Result<Vec<CString>, _>>().unwrap();
-
+        .chain(std::env::args().skip(2).map(|arg| CString::new(arg)))
+        .collect::<Result<Vec<CString>, _>>()
+        .unwrap();
 
     let c_args = args.iter()
         .map(|arg| arg.as_ptr())
