@@ -1,6 +1,7 @@
 extern crate errno;
 extern crate libc;
 
+use std::iter;
 use std::ffi::CString;
 use std::io::Write;
 use std::path::Path;
@@ -26,19 +27,18 @@ fn resolve_executable(s: &str) -> String {
 fn main() {
     let executable = std::env::args().skip(1).next().unwrap();
 
-    let mut args: Vec<CString> = Vec::new();
-    args.push(CString::new(resolve_executable(&executable)).unwrap());
-    args.extend(
-        std::env::args()
-            .skip(2)
-            .map(|arg| CString::new(arg).unwrap())
-            .collect::<Vec<CString>>(),
-    );
+    let args = iter::once(CString::new(resolve_executable(&executable)))
+        .chain(
+            std::env::args()
+                .skip(2)
+                .map(|arg| CString::new(arg)))
+        .collect::<Result<Vec<CString>, _>>().unwrap();
 
-    let mut c_args = args.iter()
+
+    let c_args = args.iter()
         .map(|arg| arg.as_ptr())
+        .chain(iter::once(std::ptr::null()))
         .collect::<Vec<*const c_char>>();
-    c_args.push(std::ptr::null());
 
     unsafe {
         let retval = prctl(PR_SET_PDEATHSIG, SIGTERM);
